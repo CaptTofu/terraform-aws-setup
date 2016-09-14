@@ -217,7 +217,12 @@ resource "aws_instance" "jumphost" {
     ami             = "ami-c8bda8a2"
     instance_type   = "t2.micro"
     key_name        = "${aws_key_pair.keypair.key_name}"
-    #security_groups = ["default", "restricted-ssh"]
+    # OK - you need to add the default VPC security group. 
+    # It'd be nice if terraform docs would show how this is done.
+    # google searches show nothing either other than the fact
+    # others agree with me
+    # vpc_security_group_ids = ["${aws_security_group.default.id}", "${aws_security_group.restricted_ssh.id}"]
+    vpc_security_group_ids = ["${aws_security_group.restricted_ssh.id}"]
     subnet_id       = "${aws_subnet.vpc_subnet_pub.id}"
     user_data =     "${file("./user-data.txt")}"
     tags {
