@@ -1,0 +1,117 @@
+# adjust these values per your deployment and account
+variable "aws_access_key" {
+  description = "AWS key id"
+  default = "AKIXYZ123"
+}
+
+variable "aws_user_prefix" {
+  description = "AWS user prefix"
+  default = "patg"
+}
+ 
+variable "aws_secret_key" {
+  description = "AWS secret key"
+  default = "zyx123321abc"
+}
+
+variable "aws_shared_credentials_file" {
+  description = "This is the path to the shared credentials file. If this is not set and a profile is specified, ~/.aws/credentials will be used."
+  default = ""
+}
+
+variable "aws_profile" {
+  description = "This is the AWS profile name as set in the shared credentials file."
+  default = "default"
+}
+
+variable "aws_region" {
+  default     = "us-east-1"
+  description = "AWS region"
+}
+
+#  these are AZs available per region
+variable "aws_region_azs" {
+  default = {
+    "us-west-2" = "us-west-2a,us-west-2b,us-west-2c"
+    "us-east-1" = "us-east-1a,us-east-1c,us-east-1d"
+  }
+
+  description = "Availability zones by region"
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block to use for VPC"
+  default = "10.1.0.0/16"
+}
+
+# 4090 IP addresses, adjust netmask per choice
+variable "vpc_subnet0_cidr" {
+  description = "subnet #1 CIDR"
+  default = "10.1.0.0/20"
+}
+
+variable "vpc_subnet1_cidr" {
+  description = "subnet #1 CIDR"
+  default = "10.1.16.0/20"
+}
+
+variable "vpc_subnet2_cidr" {
+  description = "subnet #2 CIDR"
+  default = "10.1.32.0/20"
+}
+
+variable "vpc_subnet3_cidr" {
+  description = "subnet #3 CIDR"
+  default = "10.1.48.0/20"
+}
+
+variable "max_retries" {
+  description = "max retries"
+  default     = 5
+}
+
+variable "aws_zone_id" {
+  default     = "123ABCXYZ987"
+  description = "Route53 hosted zone id"
+}
+
+
+variable "default_type" {
+  default     = "t2.micro"
+  description = "default instance type"
+}
+
+variable "default_storage_type" {
+  description = "default storage type"
+  default     = "ebs"
+}
+
+
+variable "default_volume_size" {
+  default     = "8"
+  description = "Default EBS volume size GB"
+}
+
+variable "default_storage_path" {
+  default = {
+    "ebs"       = "/dev/sdf"
+    "ephemeral" = "/dev/sdb"
+  }
+
+  description = "Storage device path"
+}
+
+variable "aws_local_public_key" {
+  default     = "~/.ssh/id_rsa.pub"
+  description = "Location of public key material to import into the <aws_user_prefix>_keypair"
+}
+
+variable "aws_local_private_key" {
+  default     = "~/.ssh/id_rsa"
+  description = "Location of private key material"
+}
+
+variable "aws_cluster_domain" {
+  default     = "yourdomain.com"
+  description = "Domain to use for route53 records <aws_user_prefix>-master.<aws_cluster_domain>"
+}
