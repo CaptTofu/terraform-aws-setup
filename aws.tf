@@ -213,7 +213,7 @@ resource "aws_security_group" "restricted_ssh" {
   }
 }
 
-resource "aws_instance" "jumphost" {
+resource "aws_instance" "jump_host" {
     ami             = "ami-c8bda8a2"
     instance_type   = "t2.micro"
     key_name        = "${aws_key_pair.keypair.key_name}"
@@ -221,12 +221,12 @@ resource "aws_instance" "jumphost" {
     # It'd be nice if terraform docs would show how this is done.
     # google searches show nothing either other than the fact
     # others agree with me
-    # vpc_security_group_ids = ["${aws_security_group.default.id}", "${aws_security_group.restricted_ssh.id}"]
-    vpc_security_group_ids = ["${aws_security_group.restricted_ssh.id}"]
+    vpc_security_group_ids = ["${aws_vpc.vpc.default_security_group_id}", "${aws_security_group.restricted_ssh.id}"]
+    # vpc_security_group_ids = ["${aws_security_group.restricted_ssh.id}"]
     subnet_id       = "${aws_subnet.vpc_subnet_pub.id}"
     user_data =     "${file("./user-data.txt")}"
     tags {
-        Name = "jumphost"
+        Name = "${jump_host_name}"
     }
 }
 # TODO

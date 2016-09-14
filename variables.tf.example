@@ -115,3 +115,7 @@ variable "aws_cluster_domain" {
   default     = "yourdomain.com"
   description = "Domain to use for route53 records <aws_user_prefix>-master.<aws_cluster_domain>"
 }
+variable "jump_host_name" {
+  default = "jumphost"
+  description = "name of jump host"
+}
